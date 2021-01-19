@@ -22,7 +22,7 @@ var gResponse []GResponse
 func getResponse(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
-	keywords := params["id"]
+	keywords := params["keywords"]
 	json.NewEncoder(w).Encode(keywords)
 	keywordArray := strings.Split(keywords, ",")
 	generalURL := "https://www.google.com/search?sxsrf=ALeKk02javhrMKcd_J3lDJfIa-Wa7gx6ug%3A1610593932726&ei=jLb_X-3kK82srQHHuryQDg&q=ram&oq=ram&gs_lcp=CgZwc3ktYWIQDFAAWABg3a87aABwAXgAgAEAiAEAkgEAmAEAqgEHZ3dzLXdpeg&sclient=psy-ab&ved=0ahUKEwjt2vL5uZruAhVNVisKHUcdD-IQ4dUDCA0"
@@ -52,6 +52,6 @@ func main() {
 	// Init Router
 	fmt.Print(math.Sqrt(4.0))
 	r := mux.NewRouter()
-	r.HandleFunc("/search/keywords={id}", getResponse).Methods("GET")
+	r.HandleFunc("/search/keywords={keywords}", getResponse).Methods("GET")
 	log.Fatal(http.ListenAndServe(":3000", r))
 }
